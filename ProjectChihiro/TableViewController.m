@@ -8,11 +8,11 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface TableViewController ()
 
 @end
 
-@implementation ViewController
+@implementation TableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
