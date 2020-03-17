@@ -15,6 +15,7 @@
 		E43E9E722420068100E8D4AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E43E9E702420068100E8D4AF /* LaunchScreen.storyboard */; };
 		E43E9E752420068100E8D4AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E742420068100E8D4AF /* main.m */; };
 		E43E9E7F2420068200E8D4AF /* ProjectChihiroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E7E2420068200E8D4AF /* ProjectChihiroTests.m */; };
+		E43E9ED524215A6400E8D4AF /* MovieDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9ED424215A6400E8D4AF /* MovieDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		E43E9E7A2420068200E8D4AF /* ProjectChihiroTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProjectChihiroTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E43E9E7E2420068200E8D4AF /* ProjectChihiroTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProjectChihiroTests.m; sourceTree = "<group>"; };
 		E43E9E802420068200E8D4AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E43E9ED324215A3900E8D4AF /* MovieDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailViewController.h; sourceTree = "<group>"; };
+		E43E9ED424215A6400E8D4AF /* MovieDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +93,10 @@
 				E43E9E662420067D00E8D4AF /* SceneDelegate.m */,
 				E43E9E682420067D00E8D4AF /* TableViewController.h */,
 				E43E9E692420067D00E8D4AF /* TableViewController.m */,
-				E43E9E6B2420067D00E8D4AF /* Main.storyboard */,
+				E43E9ED324215A3900E8D4AF /* MovieDetailViewController.h */,
+				E43E9ED424215A6400E8D4AF /* MovieDetailViewController.m */,
 				E43E9E6E2420068100E8D4AF /* Assets.xcassets */,
+				E43E9E6B2420067D00E8D4AF /* Main.storyboard */,
 				E43E9E702420068100E8D4AF /* LaunchScreen.storyboard */,
 				E43E9E732420068100E8D4AF /* Info.plist */,
 				E43E9E742420068100E8D4AF /* main.m */,
@@ -210,6 +215,7 @@
 			files = (
 				E43E9E6A2420067D00E8D4AF /* TableViewController.m in Sources */,
 				E43E9E642420067D00E8D4AF /* AppDelegate.m in Sources */,
+				E43E9ED524215A6400E8D4AF /* MovieDetailViewController.m in Sources */,
 				E43E9E752420068100E8D4AF /* main.m in Sources */,
 				E43E9E672420067D00E8D4AF /* SceneDelegate.m in Sources */,
 			);

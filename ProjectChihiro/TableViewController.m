@@ -6,7 +6,7 @@
 //  Copyright © 2020 thnitschke. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TableViewController.h"
 
 @interface TableViewController ()
 
