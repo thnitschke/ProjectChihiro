@@ -10,6 +10,6 @@
 
 @interface MovieDetailViewController : UIViewController
 
-
+@property (strong, nonatomic) NSObject *detailItem;
 
 @end

@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class MovieDetailViewController;
+
 @interface TableViewController : UITableViewController
 
+@property (strong, nonatomic) MovieDetailViewController *detailViewController;
 
 @end
 
