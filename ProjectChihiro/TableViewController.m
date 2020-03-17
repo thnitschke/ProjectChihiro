@@ -6,9 +6,11 @@
 //  Copyright © 2020 thnitschke. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "TableViewController.h"
 
-@interface TableViewController ()
+@interface TableViewController () <UITableViewDelegate, UITableViewDataSource> {
+    NSMutableArray *movieTitles;
+}
 
 @end
 
@@ -17,7 +19,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    movieTitles = [NSMutableArray arrayWithArray: @[@"a",@"b",@"c"]];
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return movieTitles.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"cell"];
+    return cell;
 }
 
 
 @end
+
