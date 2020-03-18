@@ -7,6 +7,7 @@
 //
 
 #import "TableViewController.h"
+#import "TableViewCell.h"
 
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource> {
     NSMutableArray *movieTitles;
@@ -18,21 +19,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
     movieTitles = [NSMutableArray arrayWithArray: @[@"a",@"b",@"c"]];
 }
 
-
+#pragma MARK - UITableView DataSource Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return movieTitles.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: @"cell"];
+    TableViewCell *cell = (TableViewCell *) [tableView dequeueReusableCellWithIdentifier: @"movieCell"];
     return cell;
 }
-
 
 @end
 
