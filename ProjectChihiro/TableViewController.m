@@ -9,8 +9,16 @@
 #import "TableViewController.h"
 #import "TableViewCell.h"
 
+struct Movie {
+    NSString *title;
+    NSString *rating;
+    NSString *description;
+    NSData *image;
+};
+
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource> {
-    NSMutableArray *movieTitles;
+    NSMutableArray *movies;
+    struct Movie movie;
 }
 
 @end
@@ -19,16 +27,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    movieTitles = [NSMutableArray arrayWithArray: @[@"a",@"b",@"c"]];
+    
+    movie.title = @"Hell, O World!";
+    movie.rating = @"4.2";
+    movie.description = @"welp";
+//    movie.image = [NSData init];
+    
+//    movies = [NSMutableArray init];
 }
 
 #pragma MARK - UITableView DataSource Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return movieTitles.count;
+//    return movies.count;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCell *cell = (TableViewCell *) [tableView dequeueReusableCellWithIdentifier: @"movieCell"];
+
+    cell.movieTitle.text = movie.title;
+    cell.movieRate.text = movie.rating;
+    cell.movieDescription.text = movie.description;
+    
     return cell;
 }
 

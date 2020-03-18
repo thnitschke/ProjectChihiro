@@ -14,7 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) IBOutlet UILabel *movieTitle;
 @property (nonatomic, weak) IBOutlet UILabel *movieDescription;
+@property (nonatomic, weak) IBOutlet UILabel *movieRate;
+
 @property (nonatomic, weak) IBOutlet UIImageView *moviePoster;
+
 
 @end
 
