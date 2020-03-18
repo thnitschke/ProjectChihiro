@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C40862F242159BD00DE6702 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40862E242159BD00DE6702 /* TableViewCell.m */; };
 		E43E9E642420067D00E8D4AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E632420067D00E8D4AF /* AppDelegate.m */; };
 		E43E9E672420067D00E8D4AF /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E662420067D00E8D4AF /* SceneDelegate.m */; };
 		E43E9E6A2420067D00E8D4AF /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E692420067D00E8D4AF /* TableViewController.m */; };
@@ -29,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C40862D242159BD00DE6702 /* TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		5C40862E242159BD00DE6702 /* TableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		E43E9E5F2420067D00E8D4AF /* ProjectChihiro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectChihiro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E43E9E622420067D00E8D4AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E43E9E632420067D00E8D4AF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 				E43E9E702420068100E8D4AF /* LaunchScreen.storyboard */,
 				E43E9E732420068100E8D4AF /* Info.plist */,
 				E43E9E742420068100E8D4AF /* main.m */,
+				5C40862D242159BD00DE6702 /* TableViewCell.h */,
+				5C40862E242159BD00DE6702 /* TableViewCell.m */,
 			);
 			path = ProjectChihiro;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 				E43E9E642420067D00E8D4AF /* AppDelegate.m in Sources */,
 				E43E9ED524215A6400E8D4AF /* MovieDetailViewController.m in Sources */,
 				E43E9E752420068100E8D4AF /* main.m in Sources */,
+				5C40862F242159BD00DE6702 /* TableViewCell.m in Sources */,
 				E43E9E672420067D00E8D4AF /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
