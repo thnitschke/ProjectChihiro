@@ -77,6 +77,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E42A26F424241A3200DDDDC2 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				5CB1BDF52423E69400E1D3F5 /* MovieRequest.h */,
+				5CB1BDF32423E66800E1D3F5 /* MovieRequest.m */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		E42A26F524241A3600DDDDC2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E43E9E682420067D00E8D4AF /* TableViewController.h */,
+				E43E9E692420067D00E8D4AF /* TableViewController.m */,
+				E43E9ED324215A3900E8D4AF /* MovieDetailViewController.h */,
+				E43E9ED424215A6400E8D4AF /* MovieDetailViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E42A26F624241A3900DDDDC2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E43E9E6B2420067D00E8D4AF /* Main.storyboard */,
+				E42A26F22424159000DDDDC2 /* DetailView.storyboard */,
+				E43E9E702420068100E8D4AF /* LaunchScreen.storyboard */,
+				5C40862D242159BD00DE6702 /* MovieCell.h */,
+				5C40862E242159BD00DE6702 /* MovieCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E42A26F724241A3C00DDDDC2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5CB1BDF22423E4CE00E1D3F5 /* Movie.h */,
+				5CB1BDF6242400A800E1D3F5 /* Movie.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E43E9E562420067D00E8D4AF = {
 			isa = PBXGroup;
 			children = (
@@ -98,26 +139,17 @@
 		E43E9E612420067D00E8D4AF /* ProjectChihiro */ = {
 			isa = PBXGroup;
 			children = (
-				E42A26F22424159000DDDDC2 /* DetailView.storyboard */,
+				E42A26F724241A3C00DDDDC2 /* Models */,
+				E42A26F624241A3900DDDDC2 /* Views */,
+				E42A26F524241A3600DDDDC2 /* Controllers */,
+				E42A26F424241A3200DDDDC2 /* Networking */,
 				E42A26F02424158200DDDDC2 /* Assets.xcassets */,
 				E43E9E622420067D00E8D4AF /* AppDelegate.h */,
 				E43E9E632420067D00E8D4AF /* AppDelegate.m */,
 				E43E9E652420067D00E8D4AF /* SceneDelegate.h */,
 				E43E9E662420067D00E8D4AF /* SceneDelegate.m */,
-				E43E9E682420067D00E8D4AF /* TableViewController.h */,
-				E43E9E692420067D00E8D4AF /* TableViewController.m */,
-				E43E9ED324215A3900E8D4AF /* MovieDetailViewController.h */,
-				E43E9ED424215A6400E8D4AF /* MovieDetailViewController.m */,
-				E43E9E6B2420067D00E8D4AF /* Main.storyboard */,
-				E43E9E702420068100E8D4AF /* LaunchScreen.storyboard */,
 				E43E9E732420068100E8D4AF /* Info.plist */,
 				E43E9E742420068100E8D4AF /* main.m */,
-				5C40862D242159BD00DE6702 /* MovieCell.h */,
-				5C40862E242159BD00DE6702 /* MovieCell.m */,
-				5CB1BDF22423E4CE00E1D3F5 /* Movie.h */,
-				5CB1BDF6242400A800E1D3F5 /* Movie.m */,
-				5CB1BDF52423E69400E1D3F5 /* MovieRequest.h */,
-				5CB1BDF32423E66800E1D3F5 /* MovieRequest.m */,
 			);
 			path = ProjectChihiro;
 			sourceTree = "<group>";
