@@ -12,4 +12,10 @@
 
 @property (strong, nonatomic) NSObject *detailItem;
 
+@property (weak, nonatomic) IBOutlet UIImageView *image;
+@property (weak, nonatomic) IBOutlet UILabel *movieTitle;
+@property (weak, nonatomic) IBOutlet UILabel *genres;
+@property (weak, nonatomic) IBOutlet UILabel *numberOfStars;
+@property (weak, nonatomic) IBOutlet UILabel *overviewText;
+
 @end

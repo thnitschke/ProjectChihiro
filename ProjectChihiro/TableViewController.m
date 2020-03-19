@@ -10,8 +10,10 @@
 #import "TableViewCell.h"
 #import "MovieDetailViewController.h"
 
-@interface TableViewController () <UITableViewDelegate, UITableViewDataSource> {
+@interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating> {
     NSMutableArray *movieTitles;
+    
+    UISearchController *searchController;
 }
 
 @end
@@ -20,10 +22,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     movieTitles = [NSMutableArray arrayWithArray: @[@"a",@"b",@"c"]];
+    
+    searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    searchController.searchResultsUpdater = self;
+    searchController.searchBar.placeholder = @"Search";
+    
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+    self.navigationItem.searchController = searchController;
+    self.definesPresentationContext = YES;
 }
 
-#pragma MARK - UITableView DataSource Methods
+#pragma mark - UITableView DataSource Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return movieTitles.count;
 }
@@ -35,11 +46,23 @@
 - (void)configureCell:(UITableViewCell *)cell withMovie:(NSObject *)movie {
 //    cell.textLabel.text = event.timestamp.description;
 }
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-//    return [sectionInfo numberOfObjects];
-    return (NSInteger) 1;
+
+#pragma mark - Search Methods
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    // TODO
+}
+
+
+#pragma mark - Segues
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"movieDetails"]) {
+//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//        MovieDetailViewController *controller = (MovieDetailViewController *)[[segue destinationViewController] topViewController];
+////        controller.detailItem = object;
+//        self.detailViewController = controller;
+    }
 }
 
 @end
-
