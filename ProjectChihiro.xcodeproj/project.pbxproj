@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5C40862F242159BD00DE6702 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40862E242159BD00DE6702 /* TableViewCell.m */; };
+		5C40862F242159BD00DE6702 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40862E242159BD00DE6702 /* MovieCell.m */; };
+		5CB1BDF42423E66800E1D3F5 /* MovieRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB1BDF32423E66800E1D3F5 /* MovieRequest.m */; };
+		5CB1BDF7242400A800E1D3F5 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB1BDF6242400A800E1D3F5 /* Movie.m */; };
 		E43E9E642420067D00E8D4AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E632420067D00E8D4AF /* AppDelegate.m */; };
 		E43E9E672420067D00E8D4AF /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E662420067D00E8D4AF /* SceneDelegate.m */; };
 		E43E9E6A2420067D00E8D4AF /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E692420067D00E8D4AF /* TableViewController.m */; };
@@ -29,8 +31,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5C40862D242159BD00DE6702 /* TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
-		5C40862E242159BD00DE6702 /* TableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		5C40862D242159BD00DE6702 /* MovieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieCell.h; sourceTree = "<group>"; };
+		5C40862E242159BD00DE6702 /* MovieCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieCell.m; sourceTree = "<group>"; };
+		5CB1BDF22423E4CE00E1D3F5 /* Movie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		5CB1BDF32423E66800E1D3F5 /* MovieRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieRequest.m; sourceTree = "<group>"; };
+		5CB1BDF52423E69400E1D3F5 /* MovieRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieRequest.h; sourceTree = "<group>"; };
+		5CB1BDF6242400A800E1D3F5 /* Movie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 		E43E9E5F2420067D00E8D4AF /* ProjectChihiro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectChihiro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E43E9E622420067D00E8D4AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E43E9E632420067D00E8D4AF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -98,8 +104,12 @@
 				E43E9E702420068100E8D4AF /* LaunchScreen.storyboard */,
 				E43E9E732420068100E8D4AF /* Info.plist */,
 				E43E9E742420068100E8D4AF /* main.m */,
-				5C40862D242159BD00DE6702 /* TableViewCell.h */,
-				5C40862E242159BD00DE6702 /* TableViewCell.m */,
+				5C40862D242159BD00DE6702 /* MovieCell.h */,
+				5C40862E242159BD00DE6702 /* MovieCell.m */,
+				5CB1BDF22423E4CE00E1D3F5 /* Movie.h */,
+				5CB1BDF6242400A800E1D3F5 /* Movie.m */,
+				5CB1BDF52423E69400E1D3F5 /* MovieRequest.h */,
+				5CB1BDF32423E66800E1D3F5 /* MovieRequest.m */,
 			);
 			path = ProjectChihiro;
 			sourceTree = "<group>";
@@ -215,8 +225,10 @@
 			files = (
 				E43E9E6A2420067D00E8D4AF /* TableViewController.m in Sources */,
 				E43E9E642420067D00E8D4AF /* AppDelegate.m in Sources */,
+				5CB1BDF7242400A800E1D3F5 /* Movie.m in Sources */,
+				5CB1BDF42423E66800E1D3F5 /* MovieRequest.m in Sources */,
 				E43E9E752420068100E8D4AF /* main.m in Sources */,
-				5C40862F242159BD00DE6702 /* TableViewCell.m in Sources */,
+				5C40862F242159BD00DE6702 /* MovieCell.m in Sources */,
 				E43E9E672420067D00E8D4AF /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,30 +7,25 @@
 //
 
 #import "TableViewController.h"
-#import "TableViewCell.h"
-
-struct Movie {
-    NSString *title;
-    NSString *rating;
-    NSString *description;
-    NSData *image;
-};
+#import "MovieCell.h"
+#import "Movie.h"
 
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource> {
-    NSMutableArray *movies;
-    struct Movie movie;
+    Movie *movie;
 }
-
 @end
 
 @implementation TableViewController
 
+//@synthesize movie = _movie;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    movie = Movie.new;
     movie.title = @"Hell, O World!";
     movie.rating = @"4.2";
-    movie.description = @"welp";
+    movie.overview = @"welp";
 //    movie.image = [NSData init];
     
 //    movies = [NSMutableArray init];
@@ -43,11 +38,12 @@ struct Movie {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TableViewCell *cell = (TableViewCell *) [tableView dequeueReusableCellWithIdentifier: @"movieCell"];
+    MovieCell *cell = (MovieCell *) [tableView dequeueReusableCellWithIdentifier: @"movieCell"];
 
+    NSLog(movie.title);
     cell.movieTitle.text = movie.title;
     cell.movieRate.text = movie.rating;
-    cell.movieDescription.text = movie.description;
+    cell.movieDescription.text = movie.overview;
     
     return cell;
 }

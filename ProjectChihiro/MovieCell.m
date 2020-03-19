@@ -6,9 +6,9 @@
 //  Copyright © 2020 thnitschke. All rights reserved.
 //
 
-#import "TableViewCell.h"
+#import "MovieCell.h"
 
-@implementation TableViewCell
+@implementation MovieCell
 
 @synthesize movieRate = _movieRate;
 @synthesize movieTitle = _movieTitle;

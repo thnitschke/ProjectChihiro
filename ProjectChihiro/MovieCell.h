@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TableViewCell : UITableViewCell
+@interface MovieCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel *movieTitle;
 @property (nonatomic, weak) IBOutlet UILabel *movieDescription;
