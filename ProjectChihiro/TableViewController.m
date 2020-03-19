@@ -7,24 +7,32 @@
 //
 
 #import "TableViewController.h"
-#import "TableViewCell.h"
+#import "MovieCell.h"
+#import "Movie.h"
 #import "MovieDetailViewController.h"
 
-@interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating> {
-    NSMutableArray *movieTitles;
-    
+@interface TableViewController () <UITableViewDelegate, UITableViewDataSource> {
+    Movie *movie;
+
     UISearchController *searchController;
 }
-
 @end
 
 @implementation TableViewController
 
+//@synthesize movie = _movie;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    movieTitles = [NSMutableArray arrayWithArray: @[@"a",@"b",@"c"]];
+    movie = Movie.new;
+    movie.title = @"Hell, O World!";
+    movie.rating = @"4.2";
+    movie.overview = @"welp";
+//    movie.image = [NSData init];
     
+//    movies = [NSMutableArray init];
+
     searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     searchController.searchResultsUpdater = self;
     searchController.searchBar.placeholder = @"Search";
@@ -36,11 +44,18 @@
 
 #pragma mark - UITableView DataSource Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return movieTitles.count;
+//    return movies.count;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TableViewCell *cell = (TableViewCell *) [tableView dequeueReusableCellWithIdentifier: @"movieCell"];
+    MovieCell *cell = (MovieCell *) [tableView dequeueReusableCellWithIdentifier: @"movieCell"];
+
+    NSLog(@"%@", movie.title);
+    cell.movieTitle.text = movie.title;
+    cell.movieRate.text = movie.rating;
+    cell.movieDescription.text = movie.overview;
+    
     return cell;
 }
 - (void)configureCell:(UITableViewCell *)cell withMovie:(NSObject *)movie {

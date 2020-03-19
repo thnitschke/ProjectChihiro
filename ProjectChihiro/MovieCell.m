@@ -6,22 +6,21 @@
 //  Copyright © 2020 thnitschke. All rights reserved.
 //
 
-#import "TableViewCell.h"
+#import "MovieCell.h"
 
-@implementation TableViewCell
+@implementation MovieCell
 
+@synthesize movieRate = _movieRate;
 @synthesize movieTitle = _movieTitle;
 @synthesize moviePoster = _moviePoster;
 @synthesize movieDescription = _movieDescription;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    // Configure the view for the selected state
 }
 
 @end
