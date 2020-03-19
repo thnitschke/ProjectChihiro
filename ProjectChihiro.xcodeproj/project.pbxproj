@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5C40862F242159BD00DE6702 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40862E242159BD00DE6702 /* TableViewCell.m */; };
+		E42A26F12424158300DDDDC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E42A26F02424158200DDDDC2 /* Assets.xcassets */; };
+		E42A26F32424159000DDDDC2 /* DetailView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42A26F22424159000DDDDC2 /* DetailView.storyboard */; };
 		E43E9E642420067D00E8D4AF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E632420067D00E8D4AF /* AppDelegate.m */; };
 		E43E9E672420067D00E8D4AF /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E662420067D00E8D4AF /* SceneDelegate.m */; };
 		E43E9E6A2420067D00E8D4AF /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E692420067D00E8D4AF /* TableViewController.m */; };
 		E43E9E6D2420067D00E8D4AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E43E9E6B2420067D00E8D4AF /* Main.storyboard */; };
-		E43E9E6F2420068100E8D4AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E43E9E6E2420068100E8D4AF /* Assets.xcassets */; };
 		E43E9E722420068100E8D4AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E43E9E702420068100E8D4AF /* LaunchScreen.storyboard */; };
 		E43E9E752420068100E8D4AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E742420068100E8D4AF /* main.m */; };
 		E43E9E7F2420068200E8D4AF /* ProjectChihiroTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E43E9E7E2420068200E8D4AF /* ProjectChihiroTests.m */; };
@@ -32,6 +33,8 @@
 /* Begin PBXFileReference section */
 		5C40862D242159BD00DE6702 /* TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		5C40862E242159BD00DE6702 /* TableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		E42A26F02424158200DDDDC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E42A26F22424159000DDDDC2 /* DetailView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DetailView.storyboard; sourceTree = "<group>"; };
 		E43E9E5F2420067D00E8D4AF /* ProjectChihiro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectChihiro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E43E9E622420067D00E8D4AF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E43E9E632420067D00E8D4AF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -40,7 +43,6 @@
 		E43E9E682420067D00E8D4AF /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		E43E9E692420067D00E8D4AF /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		E43E9E6C2420067D00E8D4AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E43E9E6E2420068100E8D4AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E43E9E712420068100E8D4AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E43E9E732420068100E8D4AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E43E9E742420068100E8D4AF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -90,6 +92,8 @@
 		E43E9E612420067D00E8D4AF /* ProjectChihiro */ = {
 			isa = PBXGroup;
 			children = (
+				E42A26F22424159000DDDDC2 /* DetailView.storyboard */,
+				E42A26F02424158200DDDDC2 /* Assets.xcassets */,
 				E43E9E622420067D00E8D4AF /* AppDelegate.h */,
 				E43E9E632420067D00E8D4AF /* AppDelegate.m */,
 				E43E9E652420067D00E8D4AF /* SceneDelegate.h */,
@@ -98,7 +102,6 @@
 				E43E9E692420067D00E8D4AF /* TableViewController.m */,
 				E43E9ED324215A3900E8D4AF /* MovieDetailViewController.h */,
 				E43E9ED424215A6400E8D4AF /* MovieDetailViewController.m */,
-				E43E9E6E2420068100E8D4AF /* Assets.xcassets */,
 				E43E9E6B2420067D00E8D4AF /* Main.storyboard */,
 				E43E9E702420068100E8D4AF /* LaunchScreen.storyboard */,
 				E43E9E732420068100E8D4AF /* Info.plist */,
@@ -199,7 +202,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E43E9E722420068100E8D4AF /* LaunchScreen.storyboard in Resources */,
-				E43E9E6F2420068100E8D4AF /* Assets.xcassets in Resources */,
+				E42A26F12424158300DDDDC2 /* Assets.xcassets in Resources */,
+				E42A26F32424159000DDDDC2 /* DetailView.storyboard in Resources */,
 				E43E9E6D2420067D00E8D4AF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
