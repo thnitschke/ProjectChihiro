@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C0AB68C242538ED00E34C41 /* APIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C0AB68B242538ED00E34C41 /* APIResponse.m */; };
 		5C40862F242159BD00DE6702 /* MovieCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40862E242159BD00DE6702 /* MovieCell.m */; };
 		5CB1BDF42423E66800E1D3F5 /* MovieRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB1BDF32423E66800E1D3F5 /* MovieRequest.m */; };
 		5CB1BDF7242400A800E1D3F5 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CB1BDF6242400A800E1D3F5 /* Movie.m */; };
@@ -33,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5C0AB68A2425366100E34C41 /* APIResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIResponse.h; sourceTree = "<group>"; };
+		5C0AB68B242538ED00E34C41 /* APIResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = APIResponse.m; sourceTree = "<group>"; };
 		5C40862D242159BD00DE6702 /* MovieCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieCell.h; sourceTree = "<group>"; };
 		5C40862E242159BD00DE6702 /* MovieCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieCell.m; sourceTree = "<group>"; };
 		5CB1BDF22423E4CE00E1D3F5 /* Movie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
@@ -265,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E43E9E6A2420067D00E8D4AF /* TableViewController.m in Sources */,
+				5C0AB68C242538ED00E34C41 /* APIResponse.m in Sources */,
 				E43E9E642420067D00E8D4AF /* AppDelegate.m in Sources */,
 				5CB1BDF7242400A800E1D3F5 /* Movie.m in Sources */,
 				5CB1BDF42423E66800E1D3F5 /* MovieRequest.m in Sources */,
