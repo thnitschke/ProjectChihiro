@@ -12,7 +12,7 @@
 
 @implementation MovieRequest
 
-- (NSString *)getDatafrom:(NSString *)dataURL {
+- (NSString *)getPopularMovies:(NSString *)dataURL {
     
     __block NSString *result;
     
@@ -24,7 +24,10 @@
             result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             
             NSError *jsonError;
-            NSArray *moviesJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+            NSArray *moviesJSON = [NSJSONSerialization
+                                   JSONObjectWithData:data
+                                   options:NSJSONReadingAllowFragments
+                                   error:&jsonError];
             
             if (jsonError) {
                 NSLog(@"Failed to serialize into JSON: %@", jsonError);
@@ -42,7 +45,6 @@
     
     return result;
 }
-
 
 
 @end
