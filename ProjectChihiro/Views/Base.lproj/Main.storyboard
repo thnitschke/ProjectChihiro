@@ -80,6 +80,7 @@
                                 <connections>
                                     <outlet property="movieDescription" destination="1cC-Be-cZJ" id="XHh-ON-HvO"/>
                                     <outlet property="moviePoster" destination="FzR-vt-5PJ" id="K3b-9H-xgP"/>
+                                    <outlet property="movieRate" destination="fmP-bK-SRo" id="DeL-dU-Hal"/>
                                     <outlet property="movieTitle" destination="DSe-jV-2ll" id="fBg-6d-ltT"/>
                                     <segue destination="cOb-HY-zdy" kind="show" identifier="movieDetails" id="EJh-SV-Yqc"/>
                                 </connections>

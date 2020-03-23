@@ -10,5 +10,8 @@
 
 @interface MovieRequest : NSObject
 
+- (void)fetchPopularMovies:(void (^)(NSArray *))completionHandler;
+- (void)fetchNowPlayingMovies:(void (^)(NSArray *))completionHandler;
+
 @end
 
