@@ -12,7 +12,7 @@
 
 @implementation Parser
 
-- (Movie *)parse:(NSDictionary *)dict {
++ (Movie *)parseMovieWithDict:(NSDictionary *)dict {
     Movie *movie = [[Movie alloc] init];
     movie.title = [dict valueForKey:@"title"];
     movie.overview = [dict valueForKey:@"overview"];

@@ -7,15 +7,55 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MovieRequest.h"
 #import "Movie.h"
+#import "MovieRequest.h"
 #import "Parser.h"
 
 @implementation MovieRequest
 
-- (void)fetchPopularMovies:(void (^)(NSArray *))completionHandler {
+NSString *baseURL = @"https://api.themoviedb.org/3/movie/";
+
++ (void)fetchPopularMovies:(void (^)(NSArray *))completionHandler {
     
-    NSString *plainURL = @"https://api.themoviedb.org/3/movie/popular?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
+    NSString *popularMoviesURL = @"popular?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
+    NSString *plainURL = [baseURL stringByAppendingString:popularMoviesURL];
+    NSURL *url = [NSURL URLWithString:plainURL];
+    
+    [[NSURLSession.sharedSession
+      dataTaskWithURL:url
+      completionHandler:
+      ^(NSData *data, NSURLResponse *response, NSError *error){
+        NSError *jsonError;
+        NSArray *responseJSON = [NSJSONSerialization
+                                 JSONObjectWithData:data
+                                 options:NSJSONReadingAllowFragments
+                                 error:&jsonError];
+        
+        if (jsonError) {
+            NSLog(@"Failed to serialize into JSON: %@", jsonError);
+            return;
+        }
+                
+        NSMutableArray *dicts = ((NSDictionary*) responseJSON)[@"results"];
+        NSMutableArray *movies = @[].mutableCopy;
+        
+        for (NSDictionary *dict in dicts) {
+            Movie *movie = [Parser parseMovieWithDict:dict];
+            [movies addObject:movie];
+        }
+        
+        completionHandler(movies);
+    }
+      ] resume];
+    
+    
+}
+
+
++ (void)fetchNowPlayingMovies:(void (^)(NSArray *))completionHandler {
+    
+    NSString *nowPlayingURL = @"now_playing?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
+    NSString *plainURL = [baseURL stringByAppendingString:nowPlayingURL];
     NSURL *url = [NSURL URLWithString:plainURL];
     
     [[NSURLSession.sharedSession
@@ -33,51 +73,11 @@
             return;
         }
         
-        //            NSLog(@"%@", [((NSDictionary *)responseJSON)[@"results"] objectAtIndex:0][@"title"] );
-        
         NSMutableArray *dicts = ((NSDictionary*) responseJSON)[@"results"];
         NSMutableArray *movies = @[].mutableCopy;
-        Parser *parser = [[Parser alloc] init];
         
         for (NSDictionary *dict in dicts) {
-            Movie *movie = [parser parse:dict];
-            [movies addObject:movie];
-        }
-        
-        completionHandler(movies);
-    }
-      ] resume];
-    
-    
-}
-
-
-- (void)fetchNowPlayingMovies:(void (^)(NSArray *))completionHandler {
-    
-    NSString *plainURL = @"https://api.themoviedb.org/3/movie/now_playing?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
-    NSURL *url = [NSURL URLWithString:plainURL];
-    
-    [[NSURLSession.sharedSession
-      dataTaskWithURL:url
-      completionHandler:
-      ^(NSData *data, NSURLResponse *response, NSError *error){
-        NSError *jsonError;
-        NSArray *responseJSON = [NSJSONSerialization
-                                 JSONObjectWithData:data
-                                 options:NSJSONReadingAllowFragments
-                                 error:&jsonError];
-        
-        if (jsonError) {
-            NSLog(@"Failed to serialize into JSON: %@", jsonError);
-            return;
-        }
-        
-        NSMutableArray *dicts = ((NSDictionary*) responseJSON)[@"results"];
-        NSMutableArray *movies = @[].mutableCopy;
-        Parser *parser = [[Parser alloc] init];
-        
-        for (NSDictionary *dict in dicts) {
-            Movie *movie = [parser parse:dict];
+            Movie *movie = [Parser parseMovieWithDict:dict];
             [movies addObject:movie];
         }
         
@@ -88,7 +88,7 @@
 }
 
 
-- (void)fetchMoviePosterImage:(NSString *)path callback:(void (^)(NSData *))completionHandler {
++ (void)fetchMoviePosterImage:(NSString *)path callback:(void (^)(NSData *))completionHandler {
     
     NSString *baseImageURL = @"https://image.tmdb.org/t/p/w500";
     NSURL *url = [NSURL URLWithString:[baseImageURL stringByAppendingString:path]];

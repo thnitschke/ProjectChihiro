@@ -13,10 +13,9 @@
 #import "MovieRequest.h"
 #import "MovieDetailViewController.h"
 
+typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSection;
 
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating> {
-    MovieRequest *request;
-    
     NSMutableArray<Movie *> *popularMovies;
     NSMutableArray<Movie *> *nowPlayingMovies;
 
@@ -25,8 +24,6 @@
 @end
 
 @implementation TableViewController
-
-@synthesize detailViewController = _detailViewController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,12 +36,11 @@
     self.navigationItem.searchController = searchController;
     self.definesPresentationContext = YES;
     
-    request = [[MovieRequest alloc] init];
-    [request fetchPopularMovies:^(NSArray *array){
+    [MovieRequest fetchPopularMovies:^(NSArray *array){
         self->popularMovies = [NSMutableArray<Movie *> arrayWithArray:array];
         dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
     }];
-    [request fetchNowPlayingMovies:^(NSArray *array){
+    [MovieRequest fetchNowPlayingMovies:^(NSArray *array){
         self->nowPlayingMovies = [NSMutableArray<Movie *> arrayWithArray:array];
         dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
     }];
@@ -58,18 +54,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
-        case 0: return @"Popular";
-        case 1: return @"Now Playing";
-        default: return @"default";
+        case PopularMovies: return @"Popular";
+        default: return @"Now Playing";
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-        case 0: return 5;
-        case 1: return 5;
-        default: return 0;
-    }
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -78,8 +69,8 @@
     Movie *currentMovie;
     
     switch (indexPath.section) {
-        case 0: currentMovie = [popularMovies objectAtIndex:indexPath.row]; break;
-        case 1: currentMovie = [nowPlayingMovies objectAtIndex:indexPath.row]; break;
+        case PopularMovies: currentMovie = [popularMovies objectAtIndex:indexPath.row]; break;
+        case NowPlaying: currentMovie = [nowPlayingMovies objectAtIndex:indexPath.row]; break;
         default: return cell;
     }
     
@@ -94,7 +85,7 @@
     } else {
         BOOL cellIsVisible = [[self.tableView indexPathsForVisibleRows] indexOfObject:indexPath] != NSNotFound;
         if (cellIsVisible) {
-            [request fetchMoviePosterImage:currentMovie.posterPath callback:^(NSData *data) {
+            [MovieRequest fetchMoviePosterImage:currentMovie.posterPath callback:^(NSData *data) {
                 currentMovie.image = data;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     cell.moviePoster.image = [UIImage imageWithData:data];
@@ -120,8 +111,7 @@
     if ([[segue identifier] isEqualToString:@"movieDetails"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MovieDetailViewController *controller = (MovieDetailViewController *)[segue destinationViewController];
-        controller.detailItem = indexPath.section == 0 ? [popularMovies objectAtIndex:indexPath.row] : [nowPlayingMovies objectAtIndex:indexPath.row];
-        _detailViewController = controller;
+        controller.detailItem = indexPath.section == PopularMovies ? [popularMovies objectAtIndex:indexPath.row] : [nowPlayingMovies objectAtIndex:indexPath.row];
     }
 }
 
