@@ -20,6 +20,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     _activityIndicator.hidesWhenStopped = YES;
+    _moviePoster.layer.cornerRadius = 10.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
