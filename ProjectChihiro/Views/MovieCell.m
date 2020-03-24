@@ -14,9 +14,12 @@
 @synthesize movieTitle = _movieTitle;
 @synthesize moviePoster = _moviePoster;
 @synthesize movieDescription = _movieDescription;
+@synthesize activityIndicator = _activityIndicator;
+@synthesize noImage = _noImage;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    _activityIndicator.hidesWhenStopped = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
