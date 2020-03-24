@@ -84,7 +84,7 @@
             [request fetchMoviePosterImage:currentMovie.posterPath callback:^(NSData *data) {
                 currentMovie.image = data;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    cell.imageView.image = [UIImage imageWithData:data];
+                    cell.moviePoster.image = [UIImage imageWithData:data];
                     [cell.activityIndicator stopAnimating];
                 });
             }];
