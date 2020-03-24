@@ -11,6 +11,6 @@
 
 @interface Parser : NSObject
 
-- (Movie *)parse:(NSDictionary *)dict;
++ (Movie *)parseMovieWithDict:(NSDictionary *)dict;
 
 @end

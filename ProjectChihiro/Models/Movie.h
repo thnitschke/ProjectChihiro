@@ -16,5 +16,8 @@
 @property (strong, nonatomic) NSString *posterPath;
 @property (strong, nonatomic) NSData *image;
 @property (strong, nonatomic) NSArray<NSNumber *> *genreIds;
+@property (strong, nonatomic) NSString *genres;
+
+- (void)genresFromIds:(NSDictionary *)genresDict;
 
 @end

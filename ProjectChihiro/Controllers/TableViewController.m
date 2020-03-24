@@ -15,18 +15,17 @@
 
 
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating> {
-    MovieRequest *request;
     
-    NSMutableArray<Movie *> *popularMovies;
-    NSMutableArray<Movie *> *nowPlayingMovies;
+    NSArray<Movie *> *popularMovies;
+    NSArray<Movie *> *nowPlayingMovies;
+    NSDictionary *globalGenres;
 
     UISearchController *searchController;
+    NSNumberFormatter *formatter;
 }
 @end
 
 @implementation TableViewController
-
-@synthesize detailViewController = _detailViewController;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,15 +38,23 @@
     self.navigationItem.searchController = searchController;
     self.definesPresentationContext = YES;
     
-    request = [[MovieRequest alloc] init];
-    [request fetchPopularMovies:^(NSArray *array){
-        self->popularMovies = [NSMutableArray<Movie *> arrayWithArray:array];
+    [MovieRequest fetchPopularMovies:^(NSArray *array){
+        self->popularMovies = array;
         dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
     }];
-    [request fetchNowPlayingMovies:^(NSArray *array){
-        self->nowPlayingMovies = [NSMutableArray<Movie *> arrayWithArray:array];
+    [MovieRequest fetchNowPlayingMovies:^(NSArray *array){
+        self->nowPlayingMovies = array;
         dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
     }];
+    [MovieRequest fetchMovieGenres:^(NSDictionary *genres) {
+        self->globalGenres = genres;
+    }];
+    
+    formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setMaximumFractionDigits:1];
+    [formatter setMinimumFractionDigits:1];
+    [formatter setRoundingMode: NSNumberFormatterRoundHalfEven];
 }
 
 #pragma mark - UITableView DataSource Methods
@@ -84,7 +91,7 @@
     }
     
     cell.movieTitle.text = currentMovie.title;
-    cell.movieRate.text = currentMovie.rating.stringValue;
+    cell.movieRate.text = [formatter stringFromNumber:currentMovie.rating];
     cell.movieDescription.text = currentMovie.overview;
     [cell.activityIndicator startAnimating];
     
@@ -94,7 +101,7 @@
     } else {
         BOOL cellIsVisible = [[self.tableView indexPathsForVisibleRows] indexOfObject:indexPath] != NSNotFound;
         if (cellIsVisible) {
-            [request fetchMoviePosterImage:currentMovie.posterPath callback:^(NSData *data) {
+            [MovieRequest fetchMoviePosterImage:currentMovie.posterPath callback:^(NSData *data) {
                 currentMovie.image = data;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     cell.moviePoster.image = [UIImage imageWithData:data];
@@ -121,7 +128,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MovieDetailViewController *controller = (MovieDetailViewController *)[segue destinationViewController];
         controller.detailItem = indexPath.section == 0 ? [popularMovies objectAtIndex:indexPath.row] : [nowPlayingMovies objectAtIndex:indexPath.row];
-        _detailViewController = controller;
+        [controller.detailItem genresFromIds:self->globalGenres];
     }
 }
 

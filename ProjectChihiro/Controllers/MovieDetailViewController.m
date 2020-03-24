@@ -9,7 +9,7 @@
 #import "MovieDetailViewController.h"
 
 @interface MovieDetailViewController () {
-    NSDictionary *partialGenres;
+    NSNumberFormatter *formatter;
 }
 @end
 
@@ -28,8 +28,8 @@
     _image.image = [UIImage imageWithData: _detailItem.image];
     _image.layer.cornerRadius = 10.0;
     _movieTitle.text = _detailItem.title;
-    _genres.text = [_detailItem.genreIds componentsJoinedByString:@", "];
-    _numberOfStars.text = _detailItem.rating.stringValue;
+    _genres.text = _detailItem.genres;
+    _numberOfStars.text = [formatter stringFromNumber:_detailItem.rating];
     _overviewText.text = _detailItem.overview;
 }
 
@@ -37,6 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setMaximumFractionDigits:1];
+    [formatter setMinimumFractionDigits:1];
+    [formatter setRoundingMode: NSNumberFormatterRoundHalfEven];
     [self configureView];
     
     self.navigationItem.backBarButtonItem.title = @"";
