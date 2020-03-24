@@ -12,16 +12,15 @@
 #import "MovieDetailViewController.h"
 #import "MovieRequest.h"
 
-@interface TableViewController () <UITableViewDelegate, UITableViewDataSource> {
+@interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating> {
     Movie *movie;
     NSMutableArray<Movie *> *movies;
+    MovieRequest *request;
     UISearchController *searchController;
 }
 @end
 
 @implementation TableViewController
-
-//@synthesize movie = _movie;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +33,7 @@
     self.navigationItem.searchController = searchController;
     self.definesPresentationContext = YES;
     
-    MovieRequest *request = [[MovieRequest alloc] init];
+    request = [[MovieRequest alloc] init];
     [request fetchPopularMovies:^(NSArray *array){
         self->movies = [NSMutableArray<Movie *> arrayWithArray:array];
         dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
@@ -66,15 +65,33 @@
     MovieCell *cell = (MovieCell *) [tableView dequeueReusableCellWithIdentifier: @"movieCell"];
 
     Movie *currentMovie = [movies objectAtIndex:indexPath.row];
-        
+    
     cell.movieTitle.text = currentMovie.title;
-//    cell.movieRate.text = currentMovie.rating;
+    cell.movieRate.text = currentMovie.rating.stringValue;
     cell.movieDescription.text = currentMovie.overview;
+    [cell.activityIndicator startAnimating];
+    
+    if (currentMovie.posterPath == nil) {
+        
+        [cell.activityIndicator stopAnimating];
+        [cell.noImage setHidden:NO];
+        
+    } else {
+        
+        BOOL cellIsVisible = [[self.tableView indexPathsForVisibleRows] indexOfObject:indexPath] != NSNotFound;
+        if (cellIsVisible)
+        {
+            [request fetchMoviePosterImage:currentMovie.posterPath callback:^(NSData *data) {
+                currentMovie.image = data;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cell.imageView.image = [UIImage imageWithData:data];
+                    [cell.activityIndicator stopAnimating];
+                });
+            }];
+        }
+    }
     
     return cell;
-}
-- (void)configureCell:(UITableViewCell *)cell withMovie:(NSObject *)movie {
-//    cell.textLabel.text = event.timestamp.description;
 }
 
 #pragma mark - Search Methods
@@ -90,7 +107,7 @@
     if ([[segue identifier] isEqualToString:@"movieDetails"]) {
 //        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 //        MovieDetailViewController *controller = (MovieDetailViewController *)[[segue destinationViewController] topViewController];
-////        controller.detailItem = object;
+//        controller.detailItem = [movies objectAtIndex:indexPath.row];
 //        self.detailViewController = controller;
     }
 }

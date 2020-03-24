@@ -17,6 +17,8 @@
     movie.title = [dict valueForKey:@"title"];
     movie.overview = [dict valueForKey:@"overview"];
     movie.rating = [dict valueForKey:@"vote_average"];
+    movie.posterPath = [dict valueForKey:@"poster_path"];
+    movie.genreIds = [dict valueForKey:@"genre_ids"];
     return movie;
 }
 
