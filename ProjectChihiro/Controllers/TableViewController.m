@@ -10,10 +10,11 @@
 #import "MovieCell.h"
 #import "Movie.h"
 #import "MovieDetailViewController.h"
+#import "MovieRequest.h"
 
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource> {
     Movie *movie;
-
+    NSMutableArray<Movie *> *movies;
     UISearchController *searchController;
 }
 @end
@@ -25,14 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    movie = Movie.new;
-    movie.title = @"Hell, O World!";
-    movie.rating = @"4.2";
-    movie.overview = @"welp";
-//    movie.image = [NSData init];
-    
-//    movies = [NSMutableArray init];
-
     searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     searchController.searchResultsUpdater = self;
     searchController.searchBar.placeholder = @"Search";
@@ -40,21 +33,43 @@
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     self.navigationItem.searchController = searchController;
     self.definesPresentationContext = YES;
+    
+    MovieRequest *request = [[MovieRequest alloc] init];
+    [request fetchPopularMovies:^(NSArray *array){
+        self->movies = [NSMutableArray<Movie *> arrayWithArray:array];
+        dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
+    }];
+    
+    
+    
 }
 
 #pragma mark - UITableView DataSource Methods
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    switch (section) {
+        case 0: return @"Popular";
+        case 1: return @"Now Playing";
+        default: return @"default";
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return movies.count;
-    return 3;
+    return movies.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MovieCell *cell = (MovieCell *) [tableView dequeueReusableCellWithIdentifier: @"movieCell"];
 
-    NSLog(@"%@", movie.title);
-    cell.movieTitle.text = movie.title;
-    cell.movieRate.text = movie.rating;
-    cell.movieDescription.text = movie.overview;
+    Movie *currentMovie = [movies objectAtIndex:indexPath.row];
+        
+    cell.movieTitle.text = currentMovie.title;
+//    cell.movieRate.text = currentMovie.rating;
+    cell.movieDescription.text = currentMovie.overview;
     
     return cell;
 }

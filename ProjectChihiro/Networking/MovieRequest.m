@@ -9,42 +9,85 @@
 #import <Foundation/Foundation.h>
 #import "MovieRequest.h"
 #import "Movie.h"
+#import "Parser.h"
 
 @implementation MovieRequest
 
-- (NSString *)getPopularMovies:(NSString *)dataURL {
+- (void)fetchPopularMovies:(void (^)(NSArray *))completionHandler {
     
-    __block NSString *result;
-    
-    NSURL *url = [NSURL URLWithString:dataURL];
-    
-    NSURLSessionDataTask *downloadTask =
-        [NSURLSession.sharedSession dataTaskWithURL:url completionHandler:
-         ^(NSData *data, NSURLResponse *response, NSError *error){
-            result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            
+    NSString *plainURL = @"https://api.themoviedb.org/3/movie/popular?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
+    NSURL *url = [NSURL URLWithString:plainURL];
+        
+    [[NSURLSession.sharedSession
+      dataTaskWithURL:url
+      completionHandler:
+        ^(NSData *data, NSURLResponse *response, NSError *error){
             NSError *jsonError;
-            NSArray *moviesJSON = [NSJSONSerialization
-                                   JSONObjectWithData:data
-                                   options:NSJSONReadingAllowFragments
-                                   error:&jsonError];
-            
+            NSArray *responseJSON = [NSJSONSerialization
+                                     JSONObjectWithData:data
+                                     options:NSJSONReadingAllowFragments
+                                     error:&jsonError];
+        
             if (jsonError) {
                 NSLog(@"Failed to serialize into JSON: %@", jsonError);
                 return;
             }
+        
+//            NSLog(@"%@", [((NSDictionary *)responseJSON)[@"results"] objectAtIndex:0][@"title"] );
+        
+            NSMutableArray *dicts = ((NSDictionary*) responseJSON)[@"results"];
+            NSMutableArray *movies = @[].mutableCopy;
+            Parser *parser = [[Parser alloc] init];
             
-            NSMutableArray *movies = NSMutableArray.new;
-            for (NSDictionary *movieDict in moviesJSON) {
-                NSString *title = movieDict[@"title"];
-                
+            for (NSDictionary *dict in dicts) {
+                Movie *movie = [parser parse:dict];
+                [movies addObject:movie];
             }
-        }];
+        
+            completionHandler(movies);
+        }
+    ] resume];
+
     
-    [downloadTask resume];
-    
-    return result;
 }
+
+
+- (void)fetchNowPlayingMovies:(void (^)(NSArray *))completionHandler {
+    
+    NSString *plainURL = @"https://api.themoviedb.org/3/movie/now_playing?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
+        NSURL *url = [NSURL URLWithString:plainURL];
+            
+        [[NSURLSession.sharedSession
+          dataTaskWithURL:url
+          completionHandler:
+            ^(NSData *data, NSURLResponse *response, NSError *error){
+                NSError *jsonError;
+                NSArray *responseJSON = [NSJSONSerialization
+                                         JSONObjectWithData:data
+                                         options:NSJSONReadingAllowFragments
+                                         error:&jsonError];
+            
+                if (jsonError) {
+                    NSLog(@"Failed to serialize into JSON: %@", jsonError);
+                    return;
+                }
+                
+                NSMutableArray *dicts = ((NSDictionary*) responseJSON)[@"results"];
+                    NSMutableArray *movies = @[].mutableCopy;
+                    Parser *parser = [[Parser alloc] init];
+                    
+                    for (NSDictionary *dict in dicts) {
+                        Movie *movie = [parser parse:dict];
+                        [movies addObject:movie];
+                    }
+                
+                    completionHandler(movies);
+            }
+        ] resume];
+    
+}
+    
+
 
 
 @end
