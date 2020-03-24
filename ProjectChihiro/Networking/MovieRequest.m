@@ -7,15 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MovieRequest.h"
 #import "Movie.h"
+#import "MovieRequest.h"
 #import "Parser.h"
 
 @implementation MovieRequest
 
+NSString *baseURL = @"https://api.themoviedb.org/3/movie/";
+
 + (void)fetchPopularMovies:(void (^)(NSArray *))completionHandler {
     
-    NSString *plainURL = @"https://api.themoviedb.org/3/movie/popular?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
+    NSString *popularMoviesURL = @"popular?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
+    NSString *plainURL = [baseURL stringByAppendingString:popularMoviesURL];
     NSURL *url = [NSURL URLWithString:plainURL];
     
     [[NSURLSession.sharedSession
@@ -32,9 +35,7 @@
             NSLog(@"Failed to serialize into JSON: %@", jsonError);
             return;
         }
-        
-        //            NSLog(@"%@", [((NSDictionary *)responseJSON)[@"results"] objectAtIndex:0][@"title"] );
-        
+                
         NSMutableArray *dicts = ((NSDictionary*) responseJSON)[@"results"];
         NSMutableArray *movies = @[].mutableCopy;
         
@@ -53,7 +54,8 @@
 
 + (void)fetchNowPlayingMovies:(void (^)(NSArray *))completionHandler {
     
-    NSString *plainURL = @"https://api.themoviedb.org/3/movie/now_playing?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
+    NSString *nowPlayingURL = @"now_playing?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
+    NSString *plainURL = [baseURL stringByAppendingString:nowPlayingURL];
     NSURL *url = [NSURL URLWithString:plainURL];
     
     [[NSURLSession.sharedSession

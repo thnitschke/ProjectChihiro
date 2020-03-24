@@ -13,6 +13,7 @@
 #import "MovieRequest.h"
 #import "MovieDetailViewController.h"
 
+typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSection;
 
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating> {
     
@@ -65,18 +66,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     switch (section) {
-        case 0: return @"Popular";
-        case 1: return @"Now Playing";
-        default: return @"default";
+        case PopularMovies: return @"Popular";
+        default: return @"Now Playing";
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-        case 0: return 5;
-        case 1: return 5;
-        default: return 0;
-    }
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -85,8 +81,8 @@
     Movie *currentMovie;
     
     switch (indexPath.section) {
-        case 0: currentMovie = [popularMovies objectAtIndex:indexPath.row]; break;
-        case 1: currentMovie = [nowPlayingMovies objectAtIndex:indexPath.row]; break;
+        case PopularMovies: currentMovie = [popularMovies objectAtIndex:indexPath.row]; break;
+        case NowPlaying: currentMovie = [nowPlayingMovies objectAtIndex:indexPath.row]; break;
         default: return cell;
     }
     
@@ -127,7 +123,7 @@
     if ([[segue identifier] isEqualToString:@"movieDetails"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MovieDetailViewController *controller = (MovieDetailViewController *)[segue destinationViewController];
-        controller.detailItem = indexPath.section == 0 ? [popularMovies objectAtIndex:indexPath.row] : [nowPlayingMovies objectAtIndex:indexPath.row];
+        controller.detailItem = indexPath.section == PopularMovies ? [popularMovies objectAtIndex:indexPath.row] : [nowPlayingMovies objectAtIndex:indexPath.row];
         [controller.detailItem genresFromIds:self->globalGenres];
     }
 }
