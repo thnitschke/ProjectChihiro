@@ -22,6 +22,8 @@
 
 @implementation TableViewController
 
+@synthesize detailViewController = _detailViewController;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -105,10 +107,10 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"movieDetails"]) {
-//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//        MovieDetailViewController *controller = (MovieDetailViewController *)[[segue destinationViewController] topViewController];
-//        controller.detailItem = [movies objectAtIndex:indexPath.row];
-//        self.detailViewController = controller;
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        MovieDetailViewController *controller = (MovieDetailViewController *)[segue destinationViewController];
+        controller.detailItem = [movies objectAtIndex:indexPath.row];
+        _detailViewController = controller;
     }
 }
 

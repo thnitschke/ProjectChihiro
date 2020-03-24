@@ -9,32 +9,26 @@
 #import "MovieDetailViewController.h"
 
 @interface MovieDetailViewController () {
-    
-    NSString *movieTitleT;
-    NSString *genresT;
-    NSNumber *numberOfStarsT;
-    NSString *overviewTextT;
-
+    NSDictionary *partialGenres;
 }
-
 @end
 
 @implementation MovieDetailViewController
 
+@synthesize detailItem = _detailItem;
+@synthesize image = _image;
+@synthesize genres = _genres;
+@synthesize numberOfStars = _numberOfStars;
+@synthesize overviewText = _overviewText;
+
 - (void)configureView {
     // Update the user interface for the detail item.
-//    if (self.detailItem) {
-//        self.detailDescriptionLabel.text = self.detailItem.timestamp.description;
-//    }
-    movieTitleT = @"The Lion King";
-    genresT = @"Adventure, Animation, Family, Drama, Action";
-    numberOfStarsT = [[NSNumber alloc] initWithFloat:7.1];
-    overviewTextT = @"Simba idolises his father, King Mufasa, and takes to heart his own royal destiny. But not everyone in the kingdom celebrates the new cub's arrival. Scar, Mufasa's brother—and former heir to the throne—has plans of his own. The battle for Pride Rock is ravaged with betrayal, tragedy and drama, ultimately resulting in Simba's exile. \n\nWith help from a curious pair of newfound friends, Simba will have to figure out how to grow up and take back what is rightfully his.Simba idolises his father, King Mufasa, and takes to heart his own royal destiny. But not everyone in the kingdom celebrates the new cub's arrival. Scar, Mufasa's brother—and former heir to the throne—has plans of his own. \n\nThe battle for Pride Rock is ravaged with betrayal, tragedy and drama, ultimately resulting in Simba's exile. With help from a curious pair of newfound friends, Simba will have to figure out how to grow up and take back what is rightfully his. \n\nSimba idolises his father, King Mufasa, and takes to heart his own royal destiny. But not everyone in the kingdom celebrates the new cub's arrival. Scar, Mufasa's brother—and former heir to the throne—has plans of his own. The battle for Pride Rock is ravaged with betrayal, tragedy and drama, ultimately resulting in Simba's exile. With help from a curious pair of newfound friends, Simba will have to figure out how to grow up and take back what is rightfully his.";
     
-    self.movieTitle.text = movieTitleT;
-    self.genres.text = genresT;
-    self.numberOfStars.text = numberOfStarsT.stringValue;
-    self.overviewText.text = overviewTextT;
+    _image.image = [UIImage imageWithData: _detailItem.image];
+    _image.layer.cornerRadius = 10.0;
+    _genres.text = [_detailItem.genreIds componentsJoinedByString:@", "];
+    _numberOfStars.text = _detailItem.rating.stringValue;
+    _overviewText.text = _detailItem.overview;
 }
 
 
@@ -45,18 +39,5 @@
     
     self.navigationItem.backBarButtonItem.title = @"";
 }
-
-
-#pragma mark - Managing the detail item
-
-- (void)setDetailItem:(NSObject *)newDetailItem {
-//    if (_detailItem != newDetailItem) {
-//        _detailItem = newDetailItem;
-//        
-//        // Update the view.
-//        [self configureView];
-//    }
-}
-
 
 @end
