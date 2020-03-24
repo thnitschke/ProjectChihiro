@@ -17,6 +17,7 @@
 
 @synthesize detailItem = _detailItem;
 @synthesize image = _image;
+@synthesize movieTitle = _movieTitle;
 @synthesize genres = _genres;
 @synthesize numberOfStars = _numberOfStars;
 @synthesize overviewText = _overviewText;
@@ -26,6 +27,7 @@
     
     _image.image = [UIImage imageWithData: _detailItem.image];
     _image.layer.cornerRadius = 10.0;
+    _movieTitle.text = _detailItem.title;
     _genres.text = [_detailItem.genreIds componentsJoinedByString:@", "];
     _numberOfStars.text = _detailItem.rating.stringValue;
     _overviewText.text = _detailItem.overview;
