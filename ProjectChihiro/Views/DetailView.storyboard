@@ -23,30 +23,30 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="128" id="pxu-oz-Rfd"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="4Uc-Df-g1l">
-                                <rect key="frame" x="202" y="124" width="184" height="176"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="4Uc-Df-g1l">
+                                <rect key="frame" x="202" y="124" width="184" height="191"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Movie Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XlN-hp-UAe">
-                                        <rect key="frame" x="0.0" y="0.0" width="184" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Movie Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XlN-hp-UAe">
+                                        <rect key="frame" x="0.0" y="0.0" width="184" height="53"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Genres" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHH-kR-CpQ">
-                                        <rect key="frame" x="0.0" y="77.5" width="184" height="23"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Genres" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHH-kR-CpQ">
+                                        <rect key="frame" x="0.0" y="65" width="184" height="45.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="dGo-kY-DzM">
-                                        <rect key="frame" x="0.0" y="156.5" width="37" height="19.5"/>
+                                        <rect key="frame" x="0.0" y="122.5" width="37" height="68.5"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="cT1-gR-Vx1">
-                                                <rect key="frame" x="0.0" y="1.5" width="17" height="16.5"/>
+                                                <rect key="frame" x="0.0" y="26" width="17" height="16.5"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EV1-o6-BNu">
-                                                <rect key="frame" x="20" y="0.0" width="17" height="19.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <rect key="frame" x="20" y="25" width="17" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.59215686270000001" green="0.59215686270000001" blue="0.59215686270000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -87,7 +87,7 @@
                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="1Xf-HJ-sMg" firstAttribute="trailing" secondItem="XlN-hp-UAe" secondAttribute="trailing" constant="28" id="3mz-PY-7wB"/>
-                            <constraint firstItem="4Uc-Df-g1l" firstAttribute="top" secondItem="bS9-ES-tIh" secondAttribute="top" multiplier="2" id="3nF-wd-eu6"/>
+                            <constraint firstItem="4Uc-Df-g1l" firstAttribute="top" relation="lessThanOrEqual" secondItem="bS9-ES-tIh" secondAttribute="top" multiplier="2" id="3nF-wd-eu6"/>
                             <constraint firstItem="SlP-jT-n72" firstAttribute="top" secondItem="bS9-ES-tIh" secondAttribute="bottom" constant="18" id="6jT-hX-h6K"/>
                             <constraint firstItem="SlP-jT-n72" firstAttribute="leading" secondItem="bS9-ES-tIh" secondAttribute="leading" id="AJ8-QS-yNL"/>
                             <constraint firstItem="1Xf-HJ-sMg" firstAttribute="trailing" secondItem="uHH-kR-CpQ" secondAttribute="trailing" constant="28" id="AfC-m4-L6A"/>
@@ -98,7 +98,7 @@
                             <constraint firstItem="4Uc-Df-g1l" firstAttribute="leading" secondItem="bS9-ES-tIh" secondAttribute="trailing" constant="14" id="RbR-Rl-i7S"/>
                             <constraint firstItem="5lL-w5-DLq" firstAttribute="top" secondItem="SlP-jT-n72" secondAttribute="bottom" constant="12" id="S4V-L4-OJ2"/>
                             <constraint firstItem="1Xf-HJ-sMg" firstAttribute="trailing" secondItem="4Uc-Df-g1l" secondAttribute="trailing" constant="28" id="YFp-jU-GMm"/>
-                            <constraint firstItem="4Uc-Df-g1l" firstAttribute="bottom" secondItem="bS9-ES-tIh" secondAttribute="bottom" constant="-15" id="oHW-vC-VR8"/>
+                            <constraint firstItem="4Uc-Df-g1l" firstAttribute="bottom" secondItem="bS9-ES-tIh" secondAttribute="bottom" id="oHW-vC-VR8"/>
                             <constraint firstItem="5lL-w5-DLq" firstAttribute="leading" secondItem="SlP-jT-n72" secondAttribute="leading" id="qhd-X3-3EP"/>
                             <constraint firstItem="bS9-ES-tIh" firstAttribute="leading" secondItem="1Xf-HJ-sMg" secondAttribute="leading" constant="21" id="uH6-YK-8eR"/>
                             <constraint firstItem="SlP-jT-n72" firstAttribute="trailing" secondItem="XlN-hp-UAe" secondAttribute="trailing" id="vct-UI-iBO"/>

@@ -11,4 +11,16 @@
 
 @implementation Movie : NSObject
 
+- (void)genresFromIds:(NSDictionary *)genresDict {
+    if (_genres == nil) {
+        NSMutableArray<NSString *> *genresArray = @[].mutableCopy;
+        
+        for (NSNumber *genreId in _genreIds) {
+            [genresArray addObject:genresDict[genreId]];
+        }
+        
+        _genres = [genresArray componentsJoinedByString:@", "];
+    }
+}
+
 @end

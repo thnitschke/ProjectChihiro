@@ -16,10 +16,13 @@
 typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSection;
 
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating> {
-    NSMutableArray<Movie *> *popularMovies;
-    NSMutableArray<Movie *> *nowPlayingMovies;
+    
+    NSArray<Movie *> *popularMovies;
+    NSArray<Movie *> *nowPlayingMovies;
+    NSDictionary *globalGenres;
 
     UISearchController *searchController;
+    NSNumberFormatter *formatter;
 }
 @end
 
@@ -37,13 +40,22 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     self.definesPresentationContext = YES;
     
     [MovieRequest fetchPopularMovies:^(NSArray *array){
-        self->popularMovies = [NSMutableArray<Movie *> arrayWithArray:array];
+        self->popularMovies = array;
         dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
     }];
     [MovieRequest fetchNowPlayingMovies:^(NSArray *array){
-        self->nowPlayingMovies = [NSMutableArray<Movie *> arrayWithArray:array];
+        self->nowPlayingMovies = array;
         dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
     }];
+    [MovieRequest fetchMovieGenres:^(NSDictionary *genres) {
+        self->globalGenres = genres;
+    }];
+    
+    formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    [formatter setMaximumFractionDigits:1];
+    [formatter setMinimumFractionDigits:1];
+    [formatter setRoundingMode: NSNumberFormatterRoundHalfEven];
 }
 
 #pragma mark - UITableView DataSource Methods
@@ -75,7 +87,7 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     }
     
     cell.movieTitle.text = currentMovie.title;
-    cell.movieRate.text = currentMovie.rating.stringValue;
+    cell.movieRate.text = [formatter stringFromNumber:currentMovie.rating];
     cell.movieDescription.text = currentMovie.overview;
     [cell.activityIndicator startAnimating];
     
@@ -112,6 +124,7 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MovieDetailViewController *controller = (MovieDetailViewController *)[segue destinationViewController];
         controller.detailItem = indexPath.section == PopularMovies ? [popularMovies objectAtIndex:indexPath.row] : [nowPlayingMovies objectAtIndex:indexPath.row];
+        [controller.detailItem genresFromIds:self->globalGenres];
     }
 }
 

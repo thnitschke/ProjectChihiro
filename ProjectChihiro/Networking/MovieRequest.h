@@ -13,6 +13,7 @@
 + (void)fetchPopularMovies:(void (^)(NSArray *))completionHandler;
 + (void)fetchNowPlayingMovies:(void (^)(NSArray *))completionHandler;
 + (void)fetchMoviePosterImage:(NSString *)path callback:(void (^)(NSData *))completionHandler;
++ (void)fetchMovieGenres:(void (^)(NSDictionary *))completionHandler;
 
 @end
 

@@ -13,12 +13,18 @@
 
 @implementation MovieRequest
 
-NSString *baseURL = @"https://api.themoviedb.org/3/movie/";
+NSString *baseURL = @"https://api.themoviedb.org/3/";
+NSString *apiKey = @"79bb37b9869aa0ed97dc7a23c93d0829";
+NSString *language = @"en-US";
 
 + (void)fetchPopularMovies:(void (^)(NSArray *))completionHandler {
     
-    NSString *popularMoviesURL = @"popular?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
-    NSString *plainURL = [baseURL stringByAppendingString:popularMoviesURL];
+    NSString *popularMoviesURL = @"movie/popular";
+    NSString *plainURL = [baseURL stringByAppendingFormat:@"%@?api_key=%@&language=%@&page=%d",
+                          popularMoviesURL,
+                          apiKey,
+                          language,
+                          1];
     NSURL *url = [NSURL URLWithString:plainURL];
     
     [[NSURLSession.sharedSession
@@ -54,8 +60,12 @@ NSString *baseURL = @"https://api.themoviedb.org/3/movie/";
 
 + (void)fetchNowPlayingMovies:(void (^)(NSArray *))completionHandler {
     
-    NSString *nowPlayingURL = @"now_playing?api_key=79bb37b9869aa0ed97dc7a23c93d0829&language=en-US&page=1";
-    NSString *plainURL = [baseURL stringByAppendingString:nowPlayingURL];
+    NSString *nowPlayingURL = @"movie/now_playing";
+    NSString *plainURL = [baseURL stringByAppendingFormat:@"%@?api_key=%@&language=%@&page=%d",
+    nowPlayingURL,
+    apiKey,
+    language,
+    1];
     NSURL *url = [NSURL URLWithString:plainURL];
     
     [[NSURLSession.sharedSession
@@ -106,6 +116,43 @@ NSString *baseURL = @"https://api.themoviedb.org/3/movie/";
         completionHandler(data);
     }
       ] resume];
+}
+
++ (void)fetchMovieGenres:(void (^)(NSDictionary *))completionHandler {
+    
+    NSString *movieGenresURL = @"genre/movie/list";
+    NSString *plainURL = [baseURL stringByAppendingFormat:@"%@?api_key=%@&language=%@&page=%d",
+    movieGenresURL,
+    apiKey,
+    language,
+    1];
+    NSURL *url = [NSURL URLWithString:plainURL];
+    
+    [[NSURLSession.sharedSession
+      dataTaskWithURL:url
+      completionHandler:
+      ^(NSData *data, NSURLResponse *response, NSError *error){
+        NSError *jsonError;
+        NSArray *responseJSON = [NSJSONSerialization
+                                 JSONObjectWithData:data
+                                 options:NSJSONReadingAllowFragments
+                                 error:&jsonError];
+        
+        if (jsonError) {
+            NSLog(@"Failed to serialize into JSON: %@", jsonError);
+            return;
+        }
+        
+        NSArray *genreArray = ((NSDictionary*) responseJSON)[@"genres"];
+        NSMutableDictionary *genreDict = [[NSMutableDictionary alloc] init];
+        for (NSDictionary *item in genreArray) {
+            [genreDict setObject:[item valueForKey:@"name"] forKey:[item valueForKey:@"id"]];
+        }
+        
+        completionHandler(genreDict);
+    }
+      ] resume];
+    
 }
 
 @end
