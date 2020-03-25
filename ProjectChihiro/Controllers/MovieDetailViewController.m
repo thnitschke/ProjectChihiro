@@ -23,8 +23,6 @@
 @synthesize overviewText = _overviewText;
 
 - (void)configureView {
-    // Update the user interface for the detail item.
-    
     _image.image = [UIImage imageWithData: _detailItem.image];
     _image.layer.cornerRadius = 10.0;
     _movieTitle.text = _detailItem.title;
@@ -36,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [formatter setMaximumFractionDigits:1];

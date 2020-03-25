@@ -16,7 +16,6 @@
 typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSection;
 
 @interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating> {
-    
     NSArray<Movie *> *popularMovies;
     NSArray<Movie *> *nowPlayingMovies;
     NSDictionary *globalGenres;
@@ -47,15 +46,13 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
         self->nowPlayingMovies = array;
         dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
     }];
-    [MovieRequest fetchMovieGenres:^(NSDictionary *genres) {
-        self->globalGenres = genres;
-    }];
+    [MovieRequest fetchMovieGenres:^(NSDictionary *genres) { self->globalGenres = genres; }];
     
     formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [formatter setMaximumFractionDigits:1];
     [formatter setMinimumFractionDigits:1];
-    [formatter setRoundingMode: NSNumberFormatterRoundHalfEven];
+    [formatter setRoundingMode:NSNumberFormatterRoundHalfEven];
 }
 
 #pragma mark - UITableView DataSource Methods
@@ -65,14 +62,11 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    switch (section) {
-        case PopularMovies: return @"Popular";
-        default: return @"Now Playing";
-    }
+    return (section == PopularMovies ? @"Popular" : @"Now Playing");
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return (section == PopularMovies ? 2 : nowPlayingMovies.count);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -97,7 +91,8 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     } else {
         BOOL cellIsVisible = [[self.tableView indexPathsForVisibleRows] indexOfObject:indexPath] != NSNotFound;
         if (cellIsVisible) {
-            [MovieRequest fetchMoviePosterImage:currentMovie.posterPath callback:^(NSData *data) {
+            [MovieRequest fetchMoviePosterImage:currentMovie.posterPath callback:
+             ^(NSData *data) {
                 currentMovie.image = data;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     cell.moviePoster.image = [UIImage imageWithData:data];
