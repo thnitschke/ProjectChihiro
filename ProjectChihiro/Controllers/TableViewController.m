@@ -20,9 +20,11 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     NSArray<Movie *> *popularMovies;
     NSArray<Movie *> *nowPlayingMovies;
     NSDictionary *globalGenres;
-
+    
+    NSArray<Movie *> *searchResultMovies;
     UISearchController *searchController;
     NSNumberFormatter *formatter;
+    
 }
 @end
 
@@ -50,6 +52,7 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     [MovieRequest fetchMovieGenres:^(NSDictionary *genres) {
         self->globalGenres = genres;
     }];
+    self->searchResultMovies = @[];
     
     formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -61,10 +64,16 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
 #pragma mark - UITableView DataSource Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if ([self isFiltering]) {
+        return 1;
+    }
     return 2;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if ([self isFiltering]) {
+        return [NSString stringWithFormat:@"%lu results found:", self->searchResultMovies.count];
+    }
     switch (section) {
         case PopularMovies: return @"Popular";
         default: return @"Now Playing";
@@ -72,18 +81,25 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([self isFiltering]) {
+        return self->searchResultMovies.count;
+    }
     return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MovieCell *cell = (MovieCell *) [tableView dequeueReusableCellWithIdentifier: @"movieCell"];
-
+    
     Movie *currentMovie;
     
-    switch (indexPath.section) {
-        case PopularMovies: currentMovie = [popularMovies objectAtIndex:indexPath.row]; break;
-        case NowPlaying: currentMovie = [nowPlayingMovies objectAtIndex:indexPath.row]; break;
-        default: return cell;
+    if ([self isFiltering]) {
+        currentMovie = [self->searchResultMovies objectAtIndex:indexPath.row];
+    } else {
+        switch (indexPath.section) {
+            case PopularMovies: currentMovie = [popularMovies objectAtIndex:indexPath.row]; break;
+            case NowPlaying: currentMovie = [nowPlayingMovies objectAtIndex:indexPath.row]; break;
+            default: return cell;
+        }
     }
     
     cell.movieTitle.text = currentMovie.title;
@@ -91,7 +107,7 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     cell.movieDescription.text = currentMovie.overview;
     [cell.activityIndicator startAnimating];
     
-    if (currentMovie.posterPath == nil) {
+    if (currentMovie.posterPath == NSNull.null) {
         [cell.activityIndicator stopAnimating];
         [cell.noImage setHidden:NO];
     } else {
@@ -113,9 +129,33 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
 #pragma mark - Search Methods
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    // TODO
+    if ([self isSearchBarEmpty]) {
+        return;
+    } else {
+        [self fetchContentForSearchText:searchController.searchBar.text];
+    }
 }
 
+- (BOOL)isSearchBarEmpty {
+    NSString * text = searchController.searchBar.text;
+    NSString *searchText = text == nil ? @"": text;
+    if ([searchText length] >= 2) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+- (void)fetchContentForSearchText:(NSString *)searchText {
+    [MovieRequest fetchSearchResults:searchText callback:^(NSArray *array) {
+        self->searchResultMovies = array;
+        dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
+    }];
+}
+
+- (BOOL)isFiltering {
+    return searchController.isActive && ![self isSearchBarEmpty];
+}
 
 #pragma mark - Segues
 
@@ -123,7 +163,12 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     if ([[segue identifier] isEqualToString:@"movieDetails"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MovieDetailViewController *controller = (MovieDetailViewController *)[segue destinationViewController];
-        controller.detailItem = indexPath.section == PopularMovies ? [popularMovies objectAtIndex:indexPath.row] : [nowPlayingMovies objectAtIndex:indexPath.row];
+        
+        if ([self isFiltering]) {
+            controller.detailItem = [self->searchResultMovies objectAtIndex:indexPath.row];
+        } else {
+            controller.detailItem = indexPath.section == PopularMovies ? [popularMovies  objectAtIndex:indexPath.row] : [nowPlayingMovies objectAtIndex:indexPath.row];
+        }
         [controller.detailItem genresFromIds:self->globalGenres];
     }
 }

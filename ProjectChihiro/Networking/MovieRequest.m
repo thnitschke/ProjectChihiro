@@ -41,7 +41,7 @@ NSString *language = @"en-US";
             NSLog(@"Failed to serialize into JSON: %@", jsonError);
             return;
         }
-                
+        
         NSMutableArray *dicts = ((NSDictionary*) responseJSON)[@"results"];
         NSMutableArray *movies = @[].mutableCopy;
         
@@ -62,10 +62,10 @@ NSString *language = @"en-US";
     
     NSString *nowPlayingURL = @"movie/now_playing";
     NSString *plainURL = [baseURL stringByAppendingFormat:@"%@?api_key=%@&language=%@&page=%d",
-    nowPlayingURL,
-    apiKey,
-    language,
-    1];
+                          nowPlayingURL,
+                          apiKey,
+                          language,
+                          1];
     NSURL *url = [NSURL URLWithString:plainURL];
     
     [[NSURLSession.sharedSession
@@ -97,8 +97,49 @@ NSString *language = @"en-US";
     
 }
 
++ (void)fetchSearchResults:(NSString *)query callback:(void (^)(NSArray *))completionHandler {
+    
+    NSString *searchMovieURL = @"search/movie";
+    NSString *plainURL = [baseURL stringByAppendingFormat:@"%@?api_key=%@&query=%@&language=%@&page=%d",
+                          searchMovieURL,
+                          apiKey,
+                          query,
+                          language,
+                          1];
+    NSURL *url = [NSURL URLWithString:plainURL];
+    
+    [[NSURLSession.sharedSession
+      dataTaskWithURL:url
+      completionHandler:
+      ^(NSData *data, NSURLResponse *response, NSError *error){
+        NSError *jsonError;
+        NSArray *responseJSON = [NSJSONSerialization
+                                 JSONObjectWithData:data
+                                 options:NSJSONReadingAllowFragments
+                                 error:&jsonError];
+        
+        if (jsonError) {
+            NSLog(@"Failed to serialize into JSON: %@", jsonError);
+            return;
+        }
+        
+        NSMutableArray *dicts = ((NSDictionary*) responseJSON)[@"results"];
+        NSMutableArray *movies = @[].mutableCopy;
+        
+        for (NSDictionary *dict in dicts) {
+            Movie *movie = [Parser parseMovieWithDict:dict];
+            [movies addObject:movie];
+        }
+        
+        completionHandler(movies);
+    }
+      ] resume];
+    
+}
 
 + (void)fetchMoviePosterImage:(NSString *)path callback:(void (^)(NSData *))completionHandler {
+    if (path == nil)
+        return;
     
     NSString *baseImageURL = @"https://image.tmdb.org/t/p/w500";
     NSURL *url = [NSURL URLWithString:[baseImageURL stringByAppendingString:path]];
@@ -122,10 +163,10 @@ NSString *language = @"en-US";
     
     NSString *movieGenresURL = @"genre/movie/list";
     NSString *plainURL = [baseURL stringByAppendingFormat:@"%@?api_key=%@&language=%@&page=%d",
-    movieGenresURL,
-    apiKey,
-    language,
-    1];
+                          movieGenresURL,
+                          apiKey,
+                          language,
+                          1];
     NSURL *url = [NSURL URLWithString:plainURL];
     
     [[NSURLSession.sharedSession

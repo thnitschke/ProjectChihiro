@@ -10,14 +10,14 @@
 
 @interface Movie : NSObject
 
-@property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSNumber *rating;
-@property (strong, nonatomic) NSString *overview;
-@property (strong, nonatomic) NSString *posterPath;
-@property (strong, nonatomic) NSData *image;
-@property (strong, nonatomic) NSArray<NSNumber *> *genreIds;
-@property (strong, nonatomic) NSString *genres;
+@property (nonnull, strong, nonatomic) NSString *title;
+@property (nonnull, strong, nonatomic) NSNumber *rating;
+@property (nonnull, strong, nonatomic) NSString *overview;
+@property (nullable ,strong, nonatomic) NSString *posterPath;
+@property (nullable, strong, nonatomic) NSData *image;
+@property (nonnull, strong, nonatomic) NSArray<NSNumber *> *genreIds;
+@property (nullable, strong, nonatomic) NSString *genres;
 
-- (void)genresFromIds:(NSDictionary *)genresDict;
+- (void)genresFromIds:(NSDictionary *_Nonnull)genresDict;
 
 @end
