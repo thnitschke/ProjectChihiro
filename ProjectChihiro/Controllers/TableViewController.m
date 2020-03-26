@@ -63,7 +63,7 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     [formatter setMaximumFractionDigits:1];
     [formatter setMinimumFractionDigits:1];
-    [formatter setRoundingMode: NSNumberFormatterRoundHalfEven];
+    [formatter setRoundingMode:NSNumberFormatterRoundHalfEven];
 }
 
 #pragma mark - UITableView DataSource Methods
@@ -122,7 +122,8 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     } else {
         BOOL cellIsVisible = [[self.tableView indexPathsForVisibleRows] indexOfObject:indexPath] != NSNotFound;
         if (cellIsVisible) {
-            [MovieRequest fetchMoviePosterImage:currentMovie.posterPath callback:^(NSData *data) {
+            [MovieRequest fetchMoviePosterImage:currentMovie.posterPath callback:
+             ^(NSData *data) {
                 currentMovie.image = data;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     cell.moviePoster.image = [UIImage imageWithData:data];

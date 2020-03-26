@@ -20,7 +20,8 @@ NSString *language = @"en-US";
 + (void)fetchPopularMovies:(void (^)(NSArray *))completionHandler {
     
     NSString *popularMoviesURL = @"movie/popular";
-    NSString *plainURL = [baseURL stringByAppendingFormat:@"%@?api_key=%@&language=%@&page=%d",
+    NSString *plainURL = [baseURL
+                          stringByAppendingFormat:@"%@?api_key=%@&language=%@&page=%d",
                           popularMoviesURL,
                           apiKey,
                           language,
@@ -57,11 +58,11 @@ NSString *language = @"en-US";
     
 }
 
-
 + (void)fetchNowPlayingMovies:(void (^)(NSArray *))completionHandler {
     
     NSString *nowPlayingURL = @"movie/now_playing";
-    NSString *plainURL = [baseURL stringByAppendingFormat:@"%@?api_key=%@&language=%@&page=%d",
+    NSString *plainURL = [baseURL
+                          stringByAppendingFormat:@"%@?api_key=%@&language=%@&page=%d",
                           nowPlayingURL,
                           apiKey,
                           language,
