@@ -17,6 +17,7 @@
 
 @synthesize detailItem = _detailItem;
 @synthesize image = _image;
+@synthesize noImage = _noImage;
 @synthesize movieTitle = _movieTitle;
 @synthesize genres = _genres;
 @synthesize numberOfStars = _numberOfStars;
@@ -25,12 +26,17 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     
-    _image.image = [UIImage imageWithData: _detailItem.image];
+    if (_detailItem.image) {
+        [_noImage setHidden:YES];
+        _image.image = [UIImage imageWithData: _detailItem.image];
+    } else {
+        [_noImage setHidden:NO];
+    }
     _image.layer.cornerRadius = 10.0;
     _movieTitle.text = _detailItem.title;
     _genres.text = _detailItem.genres;
     _numberOfStars.text = [formatter stringFromNumber:_detailItem.rating];
-    _overviewText.text = _detailItem.overview;
+    _overviewText.text = [_detailItem.overview isEqualToString:@""] ? @"No overview provided." : _detailItem.overview;
 }
 
 

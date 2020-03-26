@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *genres;
 @property (weak, nonatomic) IBOutlet UILabel *numberOfStars;
 @property (weak, nonatomic) IBOutlet UILabel *overviewText;
+@property (weak, nonatomic) IBOutlet UILabel *noImage;
 
 @end

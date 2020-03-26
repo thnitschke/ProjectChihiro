@@ -15,7 +15,7 @@
 
 typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSection;
 
-@interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating> {
+@interface TableViewController () <UITableViewDelegate, UITableViewDataSource, UISearchControllerDelegate, UISearchResultsUpdating> {
     
     NSArray<Movie *> *popularMovies;
     NSArray<Movie *> *nowPlayingMovies;
@@ -33,13 +33,18 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    
     searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    searchController.searchBar.placeholder = @"Search for movies";
+    searchController.obscuresBackgroundDuringPresentation = NO;
+    searchController.delegate = self;
     searchController.searchResultsUpdater = self;
-    searchController.searchBar.placeholder = @"Search";
     
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     self.navigationItem.searchController = searchController;
     self.definesPresentationContext = YES;
+    self.tableView.sectionHeaderHeight = 35.0;
     
     [MovieRequest fetchPopularMovies:^(NSArray *array){
         self->popularMovies = array;
@@ -72,7 +77,7 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if ([self isFiltering]) {
-        return [NSString stringWithFormat:@"%lu results found:", self->searchResultMovies.count];
+        return [NSString stringWithFormat:@"%lu match%@ found", self->searchResultMovies.count, self->searchResultMovies.count == 1 ? @"" : @"es"];
     }
     switch (section) {
         case PopularMovies: return @"Popular";
@@ -84,7 +89,10 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     if ([self isFiltering]) {
         return self->searchResultMovies.count;
     }
-    return 5;
+    switch (section) {
+        case PopularMovies: return 2;
+        default: return self->nowPlayingMovies.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -104,7 +112,8 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     
     cell.movieTitle.text = currentMovie.title;
     cell.movieRate.text = [formatter stringFromNumber:currentMovie.rating];
-    cell.movieDescription.text = currentMovie.overview;
+    cell.movieDescription.text = [currentMovie.overview isEqualToString:@""] ? @"No overview provided." : currentMovie.overview;
+    cell.moviePoster.image = nil;
     [cell.activityIndicator startAnimating];
     
     if (currentMovie.posterPath == NSNull.null) {
@@ -118,6 +127,7 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
                 dispatch_async(dispatch_get_main_queue(), ^{
                     cell.moviePoster.image = [UIImage imageWithData:data];
                     [cell.activityIndicator stopAnimating];
+                    [cell.noImage setHidden:YES];
                 });
             }];
         }
@@ -136,6 +146,10 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
     }
 }
 
+- (void)didDismissSearchController:(UISearchController *)searchController {
+    [self.tableView reloadData];
+}
+
 - (BOOL)isSearchBarEmpty {
     NSString * text = searchController.searchBar.text;
     NSString *searchText = text == nil ? @"": text;
@@ -147,7 +161,8 @@ typedef enum MovieSection : NSUInteger { PopularMovies, NowPlaying } MovieSectio
 }
 
 - (void)fetchContentForSearchText:(NSString *)searchText {
-    [MovieRequest fetchSearchResults:searchText callback:^(NSArray *array) {
+    NSString *queryString = [searchText stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet];
+    [MovieRequest fetchSearchResults:queryString callback:^(NSArray *array) {
         self->searchResultMovies = array;
         dispatch_async(dispatch_get_main_queue(), ^{ [self.tableView reloadData]; });
     }];
